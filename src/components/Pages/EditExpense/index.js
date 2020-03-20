@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'kea';
+import { Redirect } from 'react-router-dom';
 import firebase from '../../Firebase';
 import {
   Container,
