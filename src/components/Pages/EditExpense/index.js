@@ -9,12 +9,11 @@ const database = firebase.database();
 class AddExpensePage extends Component {
 
   componentDidMount() {
-    console.log('AAAAAARRRRRRRR:: ', this.props.match.params.expenseid)
+ 
     const expenseId = this.props.match.params.expenseid;
     const { setValues } = this.props.actions;
     database.ref('/Expenses/' + expenseId).once('value').then((snapshot) => {
       const response = snapshot.val();  
-      console.log('I GIB THINKS:: ', response)
       setValues(response); 
     });
 

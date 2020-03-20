@@ -72,7 +72,6 @@ export default kea({
       }
 
       const values = yield this.get('values');
-      console.log('Submitting values:', values);
 
       const expenseId = uuidv4();
 
