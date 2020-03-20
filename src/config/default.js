@@ -1,0 +1,1 @@
+export const JSON_STORE = 'https://api.npoint.io/0745acc0a198c4423e15'
