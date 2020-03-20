@@ -13,7 +13,7 @@ import { Container,
 import axios from 'axios';
 import { JSON_STORE } from '../../../config/default';
 import { kea, connect } from 'kea';
-import { expenseLogic } from './keaExpenseLogic';
+import { expenseLogic } from './keaListLogic';
 
 
 class ExpenseListPage extends Component {
@@ -27,7 +27,8 @@ class ExpenseListPage extends Component {
     }
 
     renderRow = (row) => {
-        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row;
+        const rowId = Object.keys(row)[0]
+        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row[rowId];
         console.log('fkkkkk')
 
         return (
@@ -77,9 +78,9 @@ class ExpenseListPage extends Component {
                         {Expenses.length > 0 ? (Expenses.map((row) => {
                             return this.renderRow(row)
                         })) : (
-                        <div>
+                        <TableRow>
                             {error ? `Error: ${error}` : 'No data found'}
-                        </div>)}
+                        </TableRow>)}
                     </TableBody>
                 </Table>
                 )}

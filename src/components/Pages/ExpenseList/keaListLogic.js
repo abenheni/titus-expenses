@@ -5,10 +5,6 @@ import { put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 import firebase from '../../Firebase';
 
-const defaults = {
-    "Expenses": []
-}
-
 const propTypes = {
     Expenses: PropTypes.array
 }
@@ -23,7 +19,7 @@ export const expenseLogic =  kea({
 
     reducers: ({ actions }) => ({
         Expenses: [[], {
-            [actions.setExpenses]: (_, payload) => {return (payload ? payload.Expenses : [])} 
+            [actions.setExpenses]: (_, payload) => {return (payload ? [payload.Expenses] : [])} 
         }],
         isLoading: [true, {
             [actions.setExpenses]: () => false,
