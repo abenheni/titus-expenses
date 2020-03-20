@@ -11,10 +11,11 @@ class AddExpensePage extends Component {
   componentDidMount() {
  
     const expenseId = this.props.match.params.expenseid;
-    const { setValues } = this.props.actions;
+    const { setValues, setValue } = this.props.actions;
     database.ref('/Expenses/' + expenseId).once('value').then((snapshot) => {
       const response = snapshot.val();  
       setValues(response); 
+      setValue('Id', expenseId);
     });
 
   }
@@ -34,7 +35,7 @@ class AddExpensePage extends Component {
     
             <div className='form-field'>
               <label>IssuingDate</label>
-              <input type='text' value={IssuingDate} onChange={e => setValue('IssuingDate', e.target.value)} />
+              <input type='date' value={IssuingDate} onChange={e => setValue('IssuingDate', e.target.value.toString())} />
             </div>
     
             <div className='form-field'>

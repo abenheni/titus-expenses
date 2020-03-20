@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 const defaults = {
     "Id": '',
     "Claimer": "John Doe",
-    "IssuingDate": new Date(2020, 1, 1).toISOString(),
+    "IssuingDate": '2020-01-01',
     "Description": '',
     "Amount": 0,
     "Approved": "NO"

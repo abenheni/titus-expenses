@@ -20,7 +20,7 @@ export const expenseLogic =  kea({
 
     reducers: ({ actions }) => ({
         Expenses: [[], {
-            [actions.setExpenses]: (_, payload) => {return (payload ? [payload.Expenses] : [])} 
+            [actions.setExpenses]: (_, payload) => { return (payload ? Object.entries(payload.Expenses) : [])} 
         }],
         isLoading: [true, {
             [actions.setExpenses]: () => false,
@@ -35,7 +35,7 @@ export const expenseLogic =  kea({
     events: ({ actions, values }) => ({
         afterMount: () => {
             database.ref('/Expenses').once('value').then((snapshot) => {
-                actions.setExpenses(snapshot.val()); 
+                actions.setExpenses(snapshot.val());
             })
         }
     })

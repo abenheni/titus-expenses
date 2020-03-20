@@ -74,6 +74,7 @@ export default kea({
       const values = yield this.get('values');
 
       database.ref('/Expenses/' + values.Id).set({
+        Id: values.Id,
         Amount: values.Amount,
         Description: values.Description,
         Claimer: values.Claimer,

@@ -20,7 +20,7 @@ class AddExpensePage extends Component {
     
             <div className='form-field'>
               <label>IssuingDate</label>
-              <input type='text' value={IssuingDate} onChange={e => setValue('IssuingDate', e.target.value)} />
+              <input type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString()); console.log('DATE IM SETTING ISS:: ', e.target.value.toString())}} />
             </div>
     
             <div className='form-field'>
