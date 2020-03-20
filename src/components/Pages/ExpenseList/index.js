@@ -44,7 +44,7 @@ class ExpenseListPage extends Component {
                     {Amount}
                 </TableCell>
                 <TableCell>
-                    {Approved}
+                    {Approved ? 'YES' : 'NO'}
                 </TableCell>
                 <TableCell>
                 <Link to={`/expense/${rowId}`}>

@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import { kea } from 'kea';
 import { put, delay } from 'redux-saga/effects';
-import axios from 'axios';
 import firebase from '../../Firebase';
-import { v4 as uuidv4 } from 'uuid';
 
 const defaults = {
     "Id": '',
@@ -11,7 +9,7 @@ const defaults = {
     "IssuingDate": new Date(2020, 1, 1).toISOString(),
     "Description": '',
     "Amount": 0,
-    "Approved": "NO"
+    "Approved": false
 }
 
 const propTypes = {
@@ -20,7 +18,7 @@ const propTypes = {
     IssuingDate: PropTypes.string,
     Description: PropTypes.string,
     Amount: PropTypes.number,
-    Approved: PropTypes.string
+    Approved: PropTypes.bool
 }
 
 const database = firebase.database();
@@ -46,6 +44,10 @@ export default kea({
         return Object.assign({}, state, payload.values)
       },
       [actions.submitSuccess]: () => defaults
+    }],
+
+    submitted: [false, PropTypes.bool, {
+      [actions.submitSuccess]: () => true
     }],
 
     isSubmitting: [false, PropTypes.bool, {
@@ -79,16 +81,8 @@ export default kea({
         Description: values.Description,
         Claimer: values.Claimer,
         IssuingDate: values.IssuingDate,
-        Approved: "No"
-      })
-      
-      if (true) {
-        window.alert('success');
-        yield put(submitSuccess());
-      } else {
-        window.alert('Error');
-        yield put(submitFailure());
-      }
+        Approved: values.Approved
+      }).then(yield put(submitSuccess()));
     }
   }),
 
