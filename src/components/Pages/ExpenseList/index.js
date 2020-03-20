@@ -5,15 +5,14 @@ import { Container,
     TableBody,
     TableCell,
     TableHead,
-    TableRow, 
-    TableFooter,
-    Checkbox,
-    Button,
+    TableRow
  } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/EditOutlined';
 import axios from 'axios';
 import { JSON_STORE } from '../../../config/default';
 import { kea, connect } from 'kea';
-import { expenseLogic } from './keaExpenseLogic';
+import { expenseLogic } from './keaListLogic';
+import { Link } from 'react-router-dom';
 
 
 class ExpenseListPage extends Component {
@@ -27,7 +26,8 @@ class ExpenseListPage extends Component {
     }
 
     renderRow = (row) => {
-        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row;
+        const rowId = Object.keys(row)[0]
+        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row[rowId];
         console.log('fkkkkk')
 
         return (
@@ -46,6 +46,11 @@ class ExpenseListPage extends Component {
                 </TableCell>
                 <TableCell>
                     {Approved}
+                </TableCell>
+                <TableCell>
+                <Link to={`/expense/${Id}`}>
+                    <EditIcon color='action' />
+                </Link>
                 </TableCell>
             </TableRow>
         )
@@ -71,15 +76,16 @@ class ExpenseListPage extends Component {
                             <TableCell>Description</TableCell>
                             <TableCell>Amount</TableCell>
                             <TableCell>Approved</TableCell>
+                            <TableCell>Edit Expense</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {Expenses.length > 0 ? (Expenses.map((row) => {
                             return this.renderRow(row)
                         })) : (
-                        <div>
+                        <TableRow>
                             {error ? `Error: ${error}` : 'No data found'}
-                        </div>)}
+                        </TableRow>)}
                     </TableBody>
                 </Table>
                 )}
