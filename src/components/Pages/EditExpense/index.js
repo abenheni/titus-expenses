@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'kea';
+import firebase from '../../Firebase';
 
-import form from './form';
+import keaForm from './keaForm';
 
-class EditExpensePage extends Component {
+const database = firebase.database();
+
+class AddExpensePage extends Component {
+
+  componentDidMount() {
+    console.log('AAAAAARRRRRRRR:: ', this.props.match.params.expenseid)
+    const expenseId = this.props.match.params.expenseid;
+    const { setValues } = this.props.actions;
+    database.ref('/Expenses/' + expenseId).once('value').then((snapshot) => {
+      const response = snapshot.val();  
+      console.log('I GIB THINKS:: ', response)
+      setValues(response); 
+    });
+
+  }
 
     render() {
         const { isSubmitting, errors, values } = this.props;
@@ -47,4 +62,4 @@ class EditExpensePage extends Component {
     }
 }
 
-export default form(EditExpensePage);
+export default keaForm(AddExpensePage);

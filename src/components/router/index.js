@@ -21,7 +21,7 @@ class Router extends Component {
                         <Route path='/expenselist' render={() => <ExpenseList />} />
                         <Route path='/expensestats' render={() => <ExpenseStats />} />
                         <Route path='/expense/add' render={() => <AddExpense />} />
-                        <Route path='/expense/:expenseid' render={() => <EditExpense />} />
+                        <Route path='/expense/:expenseid' render={(matchProps) => <EditExpense {...matchProps} />} />
                     </Switch>
                 </div>
                 </div>

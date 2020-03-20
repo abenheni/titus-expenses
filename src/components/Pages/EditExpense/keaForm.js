@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { kea } from 'kea';
 import { put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 import firebase from '../../Firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 const defaults = {
     "Id": '',
@@ -21,9 +21,9 @@ const propTypes = {
     Description: PropTypes.string,
     Amount: PropTypes.number,
     Approved: PropTypes.string
-  }
+}
 
-
+const database = firebase.database();
 
 const missingText = 'This Field is required';
 
@@ -74,8 +74,14 @@ export default kea({
       const values = yield this.get('values');
       console.log('Submitting values:', values);
 
-      axios.post('https://www.jsonstore.io/068fea12e3c81404134d116a07b7354bfacf8488f8e0dd0ef8ce7853359bc86c', values);
-
+      database.ref('/Expenses/' + values.Id).set({
+        Amount: values.Amount,
+        Description: values.Description,
+        Claimer: values.Claimer,
+        IssuingDate: values.IssuingDate,
+        Approved: "No"
+      })
+      
       if (true) {
         window.alert('success');
         yield put(submitSuccess());
@@ -107,5 +113,11 @@ export default kea({
       (errors, showErrors) => showErrors ? errors : {},
       PropTypes.object
     ]
-  })
+  }),
+
+  events: ({ actions, values }) => ({
+    afterMount: () => {
+
+    }
+})
 })
