@@ -26,11 +26,11 @@ class ExpenseListPage extends Component {
     }
 
     renderRow = (row) => {
-        const rowId = Object.keys(row)[0]
-        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row[rowId];
+        const rowId = row[0]
+        const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row[1];
 
         return (
-            <TableRow key={Id}>
+            <TableRow key={rowId}>
                 <TableCell>
                     {Claimer}
                 </TableCell>
@@ -44,10 +44,10 @@ class ExpenseListPage extends Component {
                     {Amount}
                 </TableCell>
                 <TableCell>
-                    {Approved}
+                    {Approved ? 'YES' : 'NO'}
                 </TableCell>
                 <TableCell>
-                <Link to={`/expense/${Id}`}>
+                <Link to={`/expense/${rowId}`}>
                     <EditIcon color='action' />
                 </Link>
                 </TableCell>
@@ -77,7 +77,7 @@ class ExpenseListPage extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {Expenses.length > 0 ? (Expenses.map((row) => {
+                        {Expenses && Expenses.length > 0 ? (Expenses.map((row) => {
                             return this.renderRow(row)
                         })) : (
                         <TableRow>

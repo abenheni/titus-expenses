@@ -1,48 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'kea';
+import {
+  Container,
+  FormControl,
+  Input,
+  FormHelperText,
+  FormLabel,
+  Button
+} from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 import keaForm from './keaForm';
 
 class AddExpensePage extends Component {
 
     render() {
-        const { isSubmitting, errors, values } = this.props;
-        const { setValue, submit } = this.props.actions;
+        const { isSubmitting, errors, values, submitted } = this.props;
+        const { setValue, submit, submitSuccess } = this.props.actions;
 
         const { Id, Claimer, IssuingDate, Description, Approved, Amount } = values;
+
+        if (submitted === true) {
+          return(
+            <Redirect to='/' />
+          )
+        }
+
         return(
-            <div>
-            <div className='form-field'>
-              <label>Claimer</label>
-              <input type='text' value={Claimer} onChange={e => setValue('Claimer', e.target.value)} />
+            <Container>
+            <FormControl>
+              <FormLabel>Claimer</FormLabel>
+              <Input type='text' value={Claimer} onChange={e => setValue('Claimer', e.target.value)} />
               {errors.Claimer ? <div className='form-error'>{errors.Claimer}</div> : null}
-            </div>
+            </FormControl>
     
-            <div className='form-field'>
-              <label>IssuingDate</label>
-              <input type='text' value={IssuingDate} onChange={e => setValue('IssuingDate', e.target.value)} />
-            </div>
+            <FormControl>
+              <FormLabel>IssuingDate</FormLabel>
+              <Input type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString()); console.log('DATE IM SETTING ISS:: ', e.target.value.toString())}} />
+            </FormControl>
     
-            <div className='form-field'>
-              <label className='block'>Description</label>
-              <textarea value={Description} onChange={e => setValue('Description', e.target.value)} />
-            </div>
+            <FormControl>
+              <FormLabel className='block'>Description</FormLabel>
+              <Input value={Description} onChange={e => setValue('Description', e.target.value)} />
+            </FormControl>
 
-            <div className='form-field'>
-              <label className='block'>Amount</label>
-              <input type='number' value={Amount} onChange={e => setValue('Amount', parseInt(e.target.value))} />
+            <FormControl>
+              <FormLabel className='block'>Amount</FormLabel>
+              <Input type='number' value={Amount} onChange={e => setValue('Amount', parseInt(e.target.value))} />
               {errors.Amount ? <div className='form-error'>{errors.Amount}</div> : null}
-            </div>
+              <FormHelperText>Amount in Euros</FormHelperText>
+            </FormControl>
     
-            <div className='form-field'>
-              <label className='block'>Approved</label>
-              <input type='text' value={Approved} onChange={e => setValue('Approved', e.target.value)} />
-            </div>
-
-            <button disabled={isSubmitting} onClick={submit}>
+            <Button disabled={isSubmitting} onClick={submit}>
               {isSubmitting ? 'Submitting...' : 'Submit!'}
-            </button>
-          </div>
+            </Button>
+          </Container>
         )
     }
 }
