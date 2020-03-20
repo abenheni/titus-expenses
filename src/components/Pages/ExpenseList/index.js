@@ -28,7 +28,6 @@ class ExpenseListPage extends Component {
     renderRow = (row) => {
         const rowId = Object.keys(row)[0]
         const { Id, Claimer, IssuingDate, Description, Amount, Approved } = row[rowId];
-        console.log('fkkkkk')
 
         return (
             <TableRow key={Id}>
@@ -58,8 +57,6 @@ class ExpenseListPage extends Component {
 
     render() {
         const { isLoading, error, Expenses } = this.props;
-
-        console.log('SO WHAT WE HAV IS ACTUALLY:: ', Expenses.length > 0);
 
         return(
             <Container>
