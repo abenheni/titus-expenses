@@ -11,6 +11,7 @@ import {
 import { Redirect } from 'react-router-dom';
 
 import keaForm from './keaForm';
+import styles from './styles.module.css';
 
 class AddExpensePage extends Component {
 
@@ -27,31 +28,31 @@ class AddExpensePage extends Component {
         }
 
         return(
-            <Container>
-            <FormControl>
-              <FormLabel>Claimer</FormLabel>
-              <Input type='text' value={Claimer} onChange={e => setValue('Claimer', e.target.value)} />
+            <Container className={styles.FormContainer}>
+            <FormControl className={styles.FormControl}>
+              <FormLabel className={styles.FormLabel}>Claimer</FormLabel>
+              <Input className={styles.FormInput} type='text' value={Claimer} onChange={e => setValue('Claimer', e.target.value)} />
               {errors.Claimer ? <div className='form-error'>{errors.Claimer}</div> : null}
             </FormControl>
     
-            <FormControl>
-              <FormLabel>IssuingDate</FormLabel>
-              <Input type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString()); console.log('DATE IM SETTING ISS:: ', e.target.value.toString())}} />
+            <FormControl className={styles.FormControl}>
+              <FormLabel className={styles.FormLabel}>IssuingDate</FormLabel>
+              <Input className={styles.FormInput} type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString()); console.log('DATE IM SETTING ISS:: ', e.target.value.toString())}} />
             </FormControl>
     
-            <FormControl>
-              <FormLabel className='block'>Description</FormLabel>
-              <Input value={Description} onChange={e => setValue('Description', e.target.value)} />
+            <FormControl className={styles.FormControl}>
+              <FormLabel className={styles.FormLabel}>Description</FormLabel>
+              <Input className={styles.FormInput} value={Description} onChange={e => setValue('Description', e.target.value)} />
             </FormControl>
 
-            <FormControl>
-              <FormLabel className='block'>Amount</FormLabel>
-              <Input type='number' value={Amount} onChange={e => setValue('Amount', parseInt(e.target.value))} />
+            <FormControl className={styles.FormControl}>
+              <FormLabel className={styles.FormLabel}>Amount</FormLabel>
+              <Input className={styles.FormInput} type='number' value={Amount} onChange={e => setValue('Amount', parseInt(e.target.value))} />
               {errors.Amount ? <div className='form-error'>{errors.Amount}</div> : null}
               <FormHelperText>Amount in Euros</FormHelperText>
             </FormControl>
     
-            <Button disabled={isSubmitting} onClick={submit}>
+            <Button disabled={isSubmitting} onClick={submit} className={styles.SubmitButton}>
               {isSubmitting ? 'Submitting...' : 'Submit!'}
             </Button>
           </Container>

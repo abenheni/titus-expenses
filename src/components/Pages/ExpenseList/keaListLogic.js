@@ -15,7 +15,8 @@ const database = firebase.database();
 export const expenseLogic =  kea({
     actions: () => ({
         setExpenses: ( Expenses ) => ({ Expenses }),
-        setFetchError: (message) => ({ message })
+        setFetchError: (message) => ({ message }),
+        deleteItem: (itemId) => ({ itemId })
     }),
 
     reducers: ({ actions }) => ({
@@ -30,6 +31,15 @@ export const expenseLogic =  kea({
             [actions.setExpenses]: () => null,
             [actions.setFetchError]: (_, payload) => payload.message
         }]
+    }),
+
+    listeners: ({ actions, values, store }) => ({
+        [actions.deleteItem]: async ({ itemId }) => {
+            await database.ref('/Expenses/' + itemId).set(null)
+            database.ref('/Expenses').once('value').then((snapshot) => {
+                actions.setExpenses(snapshot.val());
+            })
+        }
     }),
 
     events: ({ actions, values }) => ({
