@@ -5,15 +5,16 @@ import { Container,
     TableBody,
     TableCell,
     TableHead,
-    TableRow
+    TableRow,
+    CircularProgress,
+    Card,
+    Button
  } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/EditOutlined';
-import axios from 'axios';
-import { JSON_STORE } from '../../../config/default';
-import { kea, connect } from 'kea';
+import DeleteIcon from'@material-ui/icons/DeleteForever';
 import { expenseLogic } from './keaListLogic';
 import { Link } from 'react-router-dom';
-
+import firebase from '../../Firebase';
 
 class ExpenseListPage extends Component {
 
@@ -23,6 +24,10 @@ class ExpenseListPage extends Component {
             expenses: [],
             isLoading: true
         }
+    }
+
+    deleteItem = (rowId) => {
+        this.props.actions.deleteItem(rowId);
     }
 
     renderRow = (row) => {
@@ -44,12 +49,17 @@ class ExpenseListPage extends Component {
                     {Amount}
                 </TableCell>
                 <TableCell>
-                    {Approved ? 'YES' : 'NO'}
+                    {Approved ? (<p style={{color: 'green'}}>YES</p>) : (<p style={{color: 'red'}}>NO</p>)}
                 </TableCell>
                 <TableCell>
                 <Link to={`/expense/${rowId}`}>
                     <EditIcon color='action' />
                 </Link>
+                </TableCell>
+                <TableCell>
+                    <Button onClick={() => this.deleteItem(rowId)}>
+                        <DeleteIcon style={{ color: 'red' }} />
+                    </Button>
                 </TableCell>
             </TableRow>
         )
@@ -61,9 +71,10 @@ class ExpenseListPage extends Component {
         return(
             <Container>
                 {   isLoading ? (
-                    <div>
-                        Loading..
-                    </div>
+                    <Card style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+                        <CircularProgress color='secondary' />
+                        <p>Loading..</p>
+                    </Card>
                 ) : (
                     <Table>
                     <TableHead>
@@ -74,6 +85,7 @@ class ExpenseListPage extends Component {
                             <TableCell>Amount</TableCell>
                             <TableCell>Approved</TableCell>
                             <TableCell>Edit Expense</TableCell>
+                            <TableCell>Delete Expense</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
