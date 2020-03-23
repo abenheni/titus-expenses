@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Container } from '@material-ui/core';
+import { Container, AppBar, Typography } from '@material-ui/core';
 
 class PageHeader extends Component {
 
@@ -12,6 +12,8 @@ class PageHeader extends Component {
                 return "Expenses List";
             case "/expensestats":
                 return "Statistics";
+            case "/expense/add":
+                return "Add Expense"
             default:
                 return "Edit Expense";
         }
@@ -19,10 +21,10 @@ class PageHeader extends Component {
 
     render() {
         return(
-            <Container style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', backgroundColor: 'salmon'}} >
-                <img src='/bot.png' width='52px' height='52px'/>
-                <p style={{fontSize: '20px', color: 'white', fontWeight: 'bold'}}>{this.getPageTitle()}</p>
-            </Container>
+            <AppBar color='secondary' position='relative' style={{display: 'flex', flexDirection: 'row', padding: '10px', height: '10vh'}}>
+                <img src='/titus-logo.png'  width='100px' height='auto' style={{display: 'block', float: 'left', marginRight: '12px'}} />
+                <p style={{fontSize: '20px', color: 'white', fontWeight: 'bold', display: 'block', float: 'left'}}>{this.getPageTitle()}</p>
+            </AppBar>
         )
     }
 }

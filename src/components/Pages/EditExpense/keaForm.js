@@ -46,6 +46,10 @@ export default kea({
       [actions.submitSuccess]: () => defaults
     }],
 
+    initialized: [false, PropTypes.bool, {
+      [actions.setValues]: () => true
+    }],
+
     submitted: [false, PropTypes.bool, {
       [actions.submitSuccess]: () => true
     }],
