@@ -37,7 +37,7 @@ class AddExpensePage extends Component {
     
             <FormControl className={styles.FormControl}>
               <FormLabel className={styles.FormLabel}>IssuingDate</FormLabel>
-              <Input className={styles.FormInput} type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString()); console.log('DATE IM SETTING ISS:: ', e.target.value.toString())}} />
+              <Input className={styles.FormInput} type='date' value={IssuingDate} onChange={e => {setValue('IssuingDate', e.target.value.toString())}} />
             </FormControl>
     
             <FormControl className={styles.FormControl}>
